@@ -31,7 +31,7 @@ def get_sales_data():
         if validate_data(sales_data):
             print('data is valid!')
             break
-    return sales_data
+    return sales_data # We will use this on the very first step 1 and on step 6
 
    
 
@@ -55,6 +55,14 @@ def validate_data(values):
     return True
     
 
+""" 
+
+OBSOLETE
+
+
+Commenting out these 2 functions as they are obsolete // For training purposes.
+
+
 def update_sales_worksheet(data):
     """
     Update sales worksheet, add new row with the list data provided.
@@ -74,6 +82,22 @@ def update_surplus_worksheet(data):
     surplus_worksheet = SHEET.worksheet('surplus')
     surplus_worksheet.append_row(data)
     print('surplus worksheet updated successfully. \n')
+
+
+
+    OBSOLETE
+"""
+
+
+def update_worksheet(data, worksheet): # 2 Data will be variable sales_data Which returns user input of 6 numbers Like wise worksheet will be asigned to sales page/ worksheet
+    """
+    Receives a list of integers to be inserted into a worksheet
+    Update the relevant worksheet with the data provided
+    """
+    print(f'Updating {worksheet} worksheet...\n') # 3 Our function than prints updating "sales" worksheet
+    worksheet_to_update = SHEET.worksheet(worksheet) # 4 We than pair a new variable to worksheet and the sales page of the worksheet
+    worksheet_to_update.append_row(data) # 5 We than append that variable to go on to access that page on the sales work sheet and input the numbers user has input.
+    print(f'{worksheet} worksheet updatedd successfully\n')
 
 
 
@@ -110,9 +134,9 @@ def main():
 
     data = get_sales_data()
     sales_data = [int(num) for num in data]
-    update_sales_worksheet(sales_data)
-    new_surplus_data = calculate_surplus_data(sales_data)
-    update_surplus_worksheet(new_surplus_data)
+    update_worksheet(sales_data, 'sales') #  1 This is where the Function starts, Once called, We pass it our data for Sales row and we pass it the string value of sales,  
+    new_surplus_data = calculate_surplus_data(sales_data) # 6 Once previous function is executed we than call the main function where we call a new variable that calls function calculate_surplus_data with sales_data data.  
+    update_worksheet(new_surplus_data, 'surplus') # 7 than we call our update_worksheet function again, This time we pass it our new surplus data that holds data from calculate_surplus_data function , And this time we want to update 'surplus' page/worksheet
     
  
 print('welcome to love sandwiches data automation')
