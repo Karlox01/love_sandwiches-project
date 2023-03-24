@@ -139,6 +139,22 @@ def get_last_5_entry_sales():
     return columns
 
 
+def calculate_stock_data(data):
+    """
+    Calculate the average stock for each of the items
+    """
+    print('Calculating stock data...\n')
+    new_stock_data = []
+
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        stock_num = average * 1.1
+        new_stock_data.append(round(stock_num))
+
+    return new_stock_data   # We are calculating the last 5 values in all 6 rows for an average sum
+
+
 
 def main():
     """
@@ -150,9 +166,10 @@ def main():
     update_worksheet(sales_data, 'sales') #  1 This is where the Function starts, Once called, We pass it our data for Sales row and we pass it the string value of sales,  
     new_surplus_data = calculate_surplus_data(sales_data) # 6 Once previous function is executed we than call the main function where we call a new variable that calls function calculate_surplus_data with sales_data data.  
     update_worksheet(new_surplus_data, 'surplus') # 7 than we call our update_worksheet function again, This time we pass it our new surplus data that holds data from calculate_surplus_data function , And this time we want to update 'surplus' page/worksheet
-    
+    sales_columns = get_last_5_entry_sales()
+    stock_data = calculate_stock_data(sales_columns)
+    update_worksheet(stock_data, 'stock')
  
 print('welcome to love sandwiches data automation')
-# main()
+main()
 
-sales_columns = get_last_5_entry_sales()
