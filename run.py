@@ -64,9 +64,9 @@ Commenting out these 2 functions as they are obsolete // For training purposes.
 
 
 def update_sales_worksheet(data):
-    """
-    Update sales worksheet, add new row with the list data provided.
-    """
+    
+     Update sales worksheet, add new row with the list data provided.
+    
     print('updating sales worksheet....\n')
     sales_worksheet = SHEET.worksheet('sales')
     sales_worksheet.append_row(data)
@@ -75,9 +75,9 @@ def update_sales_worksheet(data):
 
 
 def update_surplus_worksheet(data):
-    """
-    Update surplus worksheet, Compare the sales against stock. 
-    """
+    
+     Update surplus worksheet, Compare the sales against stock. 
+    
     print('updating surplus worksheet....\n')
     surplus_worksheet = SHEET.worksheet('surplus')
     surplus_worksheet.append_row(data)
@@ -122,8 +122,21 @@ def calculate_surplus_data(sales_row):
     return surplus_data
 
 
+def get_last_5_entry_sales():
+    """
+    Collects columns of data from sales worksheet, collecting the
+    last 5 entries for each sandwich and returns the data
+    as a list of lists.
+    """
+    sales = SHEET.worksheet('sales')
+    # column = sales.col_values(3) # This will give us column for chicken spread note columns start counting at 1 here and not at 0
+    # print(column)
 
-    
+    columns = []
+    for ind in range(1, 7): # The google sheets columns start count at 1 hence why we had to set 1, 7
+        column = sales.col_values(ind)
+        columns.append(column[-5:]) # This will slice the list so that we only display last 5 inputs
+    return columns
 
 
 
@@ -140,4 +153,6 @@ def main():
     
  
 print('welcome to love sandwiches data automation')
-main()
+# main()
+
+sales_columns = get_last_5_entry_sales()
