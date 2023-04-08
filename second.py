@@ -13,15 +13,13 @@ choose = input('\n Do you wish to proceed with the tic tac toe game? :').lower()
 
 
 def displayField():
-    if (choose == 'yes'):
-        for x in range(horizontal):
-          print('\n+---+---+---+')
-          print('|', end='')
-          for y in range(vertical):
-            print('', field[x][y], end=' |')
-        print('\n+---+---+---+')
-    else:
-      print('Oh never mind than play again once u feel like it :)')
+  for x in range(horizontal):
+    print('\n+---+---+---+')
+    print('|', end='')
+    for y in range(vertical):
+      print('', field[x][y], end=' |')
+  print('\n+---+---+---+')
+
 
 
 
@@ -53,55 +51,56 @@ def checkWhoWon(field):
   ### X Axis
   if (field[0][0] == 'X' and field[0][1] == 'X' and field[0][2] == 'X'):
     print('X has won!')
-    return 'X'
+    return True
   elif (field[0][0] == 'O' and field[0][1] == 'O' and field[0][2] == 'O'):
     print('O has won!')
-    return 'O'
+    return True
   elif (field[1][0] == 'X' and field[1][1] == 'X' and field[1][2] == 'X'):
     print('X has won!')
-    return 'X'
+    return True
   elif (field[1][0] == 'O' and field[1][1] == 'O' and field[1][2] == 'O'):
     print('O has won!')
-    return 'O'
+    return True
   elif (field[2][0] == 'X' and field[2][1] == 'X' and field[2][2] == 'X'):
     print('X has won!')
-    return 'X'
+    return True
   elif (field[2][0] == 'O' and field[2][1] == 'O' and field[2][2] == 'O'):
     print('O has won!')
-    return 'O'
+    return True
 
   ### Y Axis
   elif (field[0][0] == 'X' and field[1][0] == 'X' and field[2][0] == 'X'):
     print('X has won!')
-    return 'X'
+    return True
   elif (field[0][0] == 'O' and field[1][0] == 'O' and field[2][0] == 'O'):
     print('O has won!')
-    return 'O'
+    return True
   elif (field[0][1] == 'X' and field[1][1] == 'X' and field[2][1] == 'X'):
     print('X has won!')
-    return 'X'
+    return True
   elif (field[0][1] == 'O' and field[1][1] == 'O' and field[2][1] == 'O'):
     print('O has won!')
-    return 'O'
+    return True
   elif (field[0][2] == 'X' and field[1][2] == 'X' and field[2][2] == 'X'):
     print('X has won!')
-    return 'X'
+    return True
   elif (field[0][2] == 'O' and field[1][2] == 'O' and field[2][2] == 'O'):
     print('O has won!')
-    return 'O'
+    return True
   ### Cross  wins
   elif (field[0][0] == 'X' and field[1][1] == 'X' and field[2][2] == 'X'):
     print('X has won!')
-    return 'X'
+    return True
   elif (field[0][0] == 'O' and field[1][1] == 'O' and field[2][2] == 'O'):
     print('O has won!')
-    return 'O'
+    return True
   elif (field[0][2] == 'X' and field[1][1] == 'X' and field[2][0] == 'X'):
     print('X has won!')
-    return 'X'
+    return True
   elif (field[0][2] == 'O' and field[1][1] == 'O' and field[2][0] == 'O'):
     print('O has won!')
-    return 'O'
+    return True
+    
 
 
 leaveLoop = False
@@ -111,18 +110,21 @@ turnCounter = 0
 
 if (choose == 'yes'):
   while (leaveLoop == False):
+    if (checkWhoWon(field) == True):
+      break
 
   ### Its the player turn
     if (turnCounter % 2 == 1):
       displayField()
       chosenNumber = int(input('\n chose a number between 1 and 9 : '))
-      if (chosenNumber >= 1 and chosenNumber <= 9 and not aiChoice):
+      if (chosenNumber >= 1 and chosenNumber <= 9 and chosenNumber != aiChoice):
         inputInArray(chosenNumber, 'X')
         numbers.remove(chosenNumber)
-      
+        checkWhoWon(field)
+        turnCounter += 1
       else:
         print('Invalid input number, Please try again , Numbers 1 - 9 ONLY!****')
-      turnCounter += 1
+      
 
   ### Competitors turn
     else:
@@ -134,8 +136,8 @@ if (choose == 'yes'):
           numbers.remove(aiChoice)
           turnCounter += 1
           break
-   
-
+else:
+  print('Oh never mind than play once u feel like it :)')
 
 
 
